@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ColorGrab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="atmosphere" aria-hidden="true"></div>
+    <main class="stage">
+      <header class="brand-block">
+        <p class="brand">ColorGrab</p>
+        <h1 class="tagline">Sample any pixel. Grab the window id too.</h1>
+      </header>
+
+      <section class="swatch-plane" id="swatch" aria-label="Current color preview">
+        <div class="swatch-veil"></div>
+        <div class="swatch-readout">
+          <span id="swatchHex">#3DFFA8</span>
+          <span class="swatch-sep" aria-hidden="true">·</span>
+          <span id="swatchRgb">rgb(61, 255, 168)</span>
+          <span class="swatch-sep" aria-hidden="true">·</span>
+          <span id="swatchXy">—, —</span>
+          <span class="swatch-sep swatch-rel-sep" id="swatchRelSep" hidden aria-hidden="true">·</span>
+          <span id="swatchRel" hidden></span>
+        </div>
+      </section>
+
+      <div class="mode-row" role="radiogroup" aria-label="Grab mode">
+        <button type="button" class="mode-btn is-active" data-mode="point" aria-pressed="true">Point</button>
+        <button type="button" class="mode-btn" data-mode="rect" aria-pressed="false">Rectangle</button>
+        <button type="button" class="mode-btn" data-mode="circle" aria-pressed="false">Circle</button>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-pick" id="pickBtn">
+          <span class="btn-pick-glow" aria-hidden="true"></span>
+          <span id="pickBtnLabel">Pick color + window</span>
+        </button>
+        <button type="button" class="btn-secondary" id="eyedropperBtn" hidden>
+          Browser eyedropper
+        </button>
+        <label class="manual">
+          <span class="sr-only">Manual color</span>
+          <input type="color" id="manualColor" value="#3dffa8" />
+        </label>
+      </div>
+
+      <p class="support" id="supportNote"></p>
+
+      <section class="formats" aria-label="Color formats">
+        <div class="format format-pair" data-format="color">
+          <span class="format-label">COLOR</span>
+          <div class="format-pair-values">
+            <code class="format-value" id="hexValue">#3DFFA8</code>
+            <code class="format-value format-value-secondary" id="rgbValue">rgb(61, 255, 168)</code>
+          </div>
+          <div class="format-pair-actions">
+            <button type="button" class="copy-btn" data-copy="hex" aria-label="Copy HEX">HEX</button>
+            <button type="button" class="copy-btn" data-copy="rgb" aria-label="Copy RGB">RGB</button>
+          </div>
+        </div>
+        <div class="format" data-format="hsl">
+          <span class="format-label">HSL</span>
+          <code class="format-value" id="hslValue">152°, 100%, 62%</code>
+          <button type="button" class="copy-btn" data-copy="hsl" aria-label="Copy HSL">Copy</button>
+        </div>
+        <div class="format" data-format="win">
+          <span class="format-label">WIN</span>
+          <code class="format-value" id="winValue">—</code>
+          <button type="button" class="copy-btn" data-copy="win" aria-label="Copy window id">Copy</button>
+        </div>
+        <div class="format format-pair" data-format="xy">
+          <span class="format-label">XY</span>
+          <div class="format-pair-values">
+            <code class="format-value" id="xyValue">screen —, —</code>
+            <code class="format-value format-value-secondary" id="relValue">window —, —</code>
+          </div>
+          <div class="format-pair-actions">
+            <button type="button" class="copy-btn" data-copy="xy" aria-label="Copy screen coordinates">Screen</button>
+            <button type="button" class="copy-btn" data-copy="rel" aria-label="Copy window-relative coordinates">Window</button>
+          </div>
+        </div>
+        <div class="format format-pair" data-format="shape" id="shapeRow" hidden>
+          <span class="format-label" id="shapeLabel">SHAPE</span>
+          <div class="format-pair-values">
+            <code class="format-value" id="shapePrimary">—</code>
+            <code class="format-value format-value-secondary" id="shapeSecondary">—</code>
+          </div>
+          <div class="format-pair-actions">
+            <button type="button" class="copy-btn" data-copy="shapePrimary" aria-label="Copy shape primary">Copy</button>
+            <button type="button" class="copy-btn" data-copy="shapeSecondary" aria-label="Copy shape secondary">Geom</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="history" aria-label="Recent colors">
+        <h2 class="history-title">Recent</h2>
+        <div class="history-row" id="history"></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
